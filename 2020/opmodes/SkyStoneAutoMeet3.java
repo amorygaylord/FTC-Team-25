@@ -15,8 +15,8 @@ import team25core.Robot;
 import team25core.RobotEvent;
 import team25core.StoneDetectionTask;
 
-@Autonomous(name = "AutoMeET5", group = "Team 25")
-public class SkyStoneAutoMeet2 extends Robot {
+@Autonomous(name = "AutoMeet7", group = "Team 25")
+public class SkyStoneAutoMeet3 extends Robot {
 
 
     private final static String TAG = "STONEZ";
@@ -31,6 +31,7 @@ public class SkyStoneAutoMeet2 extends Robot {
     private Servo foundationHookLeftServo;
 
     private final double DOWN_GRABBER_SERVO = (float) 255/ (float)256.0;
+    private final double MID_GRABBER_SERVO = (float)  200/ (float)256.0;
     private final double UP_GRABBER_SERVO = (float) 30/ (float)256.0;
     private final double OPEN_FOUNDATION_HOOK_RIGHT_SERVO = (float)91 / (float)256.0;
     private final double OPEN_FOUNDATION_HOOK_LEFT_SERVO  = (float)113 / (float)256.0;
@@ -434,8 +435,9 @@ public class SkyStoneAutoMeet2 extends Robot {
         blueDepotPath.addSegment(DeadReckonPath.SegmentType.STRAIGHT,1.6, -STRAIGHT_SPEED); //
 
         redDepotPath.stop();
-        redDepotPath.addSegment(DeadReckonPath.SegmentType.SIDEWAYS,1.2, STRAIGHT_SPEED);  //might increase 2
-        redDepotPath.addSegment(DeadReckonPath.SegmentType.STRAIGHT,1.5, -0.4);  //2
+        redDepotPath.addSegment(DeadReckonPath.SegmentType.SIDEWAYS,0.3, STRAIGHT_SPEED);  //might increase 2 //original 1.2
+        //redDepotPath.addSegment(DeadReckonPath.SegmentType.STRAIGHT,1.5, -0.4);  //2
+        redDepotPath.addSegment(DeadReckonPath.SegmentType.STRAIGHT,1.2, -0.4);  //2
 
         bmoveAcross.stop();
         bmoveAcross.addSegment(DeadReckonPath.SegmentType.STRAIGHT,3.2 ,STRAIGHT_SPEED);
@@ -552,6 +554,7 @@ public class SkyStoneAutoMeet2 extends Robot {
             drivetrain1.strafe(-SkyStoneConstants25.STRAFE_SPEED);
         }
         loggingTlm.setValue("startStrafing:after starting to strafe");
+        grabberServo.setPosition(MID_GRABBER_SERVO);
     }
 
 
