@@ -46,6 +46,7 @@ import team25core.GamepadTask;
 import team25core.Robot;
 import team25core.RobotEvent;
 import team25core.RunToEncoderValueTask;
+import team25core.SingleShotTimerTask;
 import team25core.TankMechanumControlSchemeBackwards;
 import team25core.TankMechanumControlSchemeReverse;
 import team25core.TeleopDriveTask;
@@ -79,8 +80,8 @@ public class RollingStoneTeleop extends Robot {
     private final double OPEN_RIGHT_SERVO = (float) 145.0 / 256.0;
     private final double CLOSE_LEFT_SERVO = (float) 159.0 / 256.0;
     private final double CLOSE_RIGHT_SERVO = (float) 62.0 / 256.0;
-    private final double OPEN_MONSTER_RETENTION_SERVO = (float) 203.0 / 256.0;  //220
-    private final double CLOSE_MONSTER_RETENTION_SERVO = (float) 128.0 / 256.0; //117
+    private final double OPEN_MONSTER_RETENTION_SERVO = (float) 70.0 / 256.0;  //220
+    private final double CLOSE_MONSTER_RETENTION_SERVO = (float) 119.0 / 256.0; //117
     private final double DOWN_GRABBER_SERVO = (float)255/256.0;
     private final double UP_GRABBER_SERVO = (float) 30/256.0;
     private final double UP_FOUNDATION_LEFT_SERVO = (float) 118/ 256.0;
@@ -201,6 +202,14 @@ public class RollingStoneTeleop extends Robot {
         this.addTask(new RunToEncoderValueTask(this,  liftMotor, currentHeight, .75));
     }
 
+    public void clawOpen()
+    {
+        //opening claw servos
+        leftServo.setPosition(OPEN_LEFT_SERVO);
+        rightServo.setPosition(OPEN_RIGHT_SERVO);
+    }
+
+
     @Override
     public void start() {
 
@@ -217,9 +226,16 @@ public class RollingStoneTeleop extends Robot {
 
         monsterRetentionServo.setPosition(OPEN_MONSTER_RETENTION_SERVO);
 
-        leftServo.setPosition(OPEN_LEFT_SERVO);
-        rightServo.setPosition(OPEN_RIGHT_SERVO);
         //grabberServo.setPosition(UP_GRABBER_SERVO);
+
+        addTask(new SingleShotTimerTask(this, 2000) //2000 milliseconds == 2 seconds
+        {
+            @Override
+            public void handleEvent(RobotEvent e){
+                clawOpen();
+            }
+
+        });
 
         this.addTask(new GamepadTask(this, GamepadTask.GamepadNumber.GAMEPAD_1) {
             //@Override
