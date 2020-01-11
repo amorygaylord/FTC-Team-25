@@ -30,7 +30,7 @@ public class SkyStoneAutoMeet3 extends Robot {
     private Servo foundationHookRightServo;
     private Servo foundationHookLeftServo;
 
-    private final double DOWN_GRABBER_SERVO = (float) 255/ (float)256.0;
+    private final double DOWN_GRABBER_SERVO = (float) 256/ (float)256.0;
     private final double MID_GRABBER_SERVO = (float)  200/ (float)256.0;
     private final double UP_GRABBER_SERVO = (float) 30/ (float)256.0;
     private final double OPEN_FOUNDATION_HOOK_RIGHT_SERVO = (float)91 / (float)256.0;
@@ -444,8 +444,8 @@ public class SkyStoneAutoMeet3 extends Robot {
         bmoveAcross.addSegment(DeadReckonPath.SegmentType.SIDEWAYS,14, STRAIGHT_SPEED);
 
         rmoveAcross.stop();
-        rmoveAcross.addSegment(DeadReckonPath.SegmentType.STRAIGHT,4.5  ,STRAIGHT_SPEED);
-        rmoveAcross.addSegment(DeadReckonPath.SegmentType.SIDEWAYS,16, -STRAIGHT_SPEED);  //needs change
+        rmoveAcross.addSegment(DeadReckonPath.SegmentType.STRAIGHT,4.5  ,.3); //STRAIGHT_SPEED
+        rmoveAcross.addSegment(DeadReckonPath.SegmentType.SIDEWAYS,16, -.4);  //STRAIGHT_SPEED needs change
 
         redFoundationPath.stop();
         redFoundationPath.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 6, STRAIGHT_SPEED);
@@ -475,7 +475,7 @@ public class SkyStoneAutoMeet3 extends Robot {
         blueSkyStoneUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 3.4, -STRAIGHT_SPEED);
 
         redSkyStoneUnderBridge.stop();
-        redSkyStoneUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 3.4, STRAIGHT_SPEED);
+        redSkyStoneUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 3.4, STRAIGHT_SPEED); //3.4
 
         getCloserPath.stop();
         getCloserPath.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 5.5, -STRAIGHT_SPEED);
