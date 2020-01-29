@@ -33,9 +33,9 @@ public class SkyStoneAutoMeet3 extends Robot {
     private final double DOWN_GRABBER_SERVO = (float) 256/ (float)256.0;
     private final double MID_GRABBER_SERVO = (float)  200/ (float)256.0;
     private final double UP_GRABBER_SERVO = (float) 30/ (float)256.0;
-    private final double OPEN_FOUNDATION_HOOK_RIGHT_SERVO = (float)91 / (float)256.0;
+    private final double OPEN_FOUNDATION_HOOK_RIGHT_SERVO = (float)216/ (float)256.0;
     private final double OPEN_FOUNDATION_HOOK_LEFT_SERVO  = (float)113 / (float)256.0;
-    private final double CLOSE_FOUNDATION_HOOK_RIGHT_SERVO  = (float)216/ (float)256.0;  //FIX ALL FOUNDATION SERVO
+    private final double CLOSE_FOUNDATION_HOOK_RIGHT_SERVO  = (float)91 / (float)256.0;  //FIX ALL FOUNDATION SERVO
     private final double CLOSE_FOUNDATION_HOOK_LEFT_SERVO = (float)238/ (float)256.0;
 
     //private final double NUM_PIXELS_PER_INCH = 10;  //10 original 63
@@ -447,7 +447,8 @@ public class SkyStoneAutoMeet3 extends Robot {
         rmoveAcross.addSegment(DeadReckonPath.SegmentType.STRAIGHT,4.5  ,.3); //STRAIGHT_SPEED
         rmoveAcross.addSegment(DeadReckonPath.SegmentType.SIDEWAYS,12.5, -.4);  //STRAIGHT_SPEED needs change decrease 16
 
-        redFoundationPath.stop();
+        //ORIGINAL RED FOUNDATION PATH
+        /* redFoundationPath.stop();
         redFoundationPath.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 6, STRAIGHT_SPEED);
         redFoundationPath.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 8, STRAIGHT_SPEED);
 
@@ -456,10 +457,25 @@ public class SkyStoneAutoMeet3 extends Robot {
 
         redFoundationUnderBridge.stop();
         redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 9, -STRAIGHT_SPEED);
-        redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 5, STRAIGHT_SPEED);
-        redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 4, -STRAIGHT_SPEED);
+         redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 5, STRAIGHT_SPEED);
+         redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 4, -STRAIGHT_SPEED); */
 
-        blueFoundationPath.stop();
+        //MODIFIED RED FOUNDATION PATH: COMPLETE
+        redFoundationPath.stop();
+        redFoundationPath.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 7, 0.8); // move forwards to foundation
+        redFoundationPath.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 5,0.8); // strafe to align w/ foundation
+        redFoundationPath.addSegment(DeadReckonPath.SegmentType.STRAIGHT,5,0.8); // push up to foundation
+
+        endRedFoundation.stop();
+        endRedFoundation.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 10, -0.5); // pull foundation back
+        endRedFoundation.addSegment(DeadReckonPath.SegmentType.TURN, 130, -0.7); // turn the foundation into the building site
+
+        redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 4, 0.8); // push foundation against wall
+        redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 11, -0.8); // backs up to skybridge
+        redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 8, -0.4);//parks on inside of skybridge
+
+        //ORIGINAL BLUE FOUNDATION PATH
+        /*blueFoundationPath.stop();
         blueFoundationPath.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 6, -STRAIGHT_SPEED);
         blueFoundationPath.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 8, STRAIGHT_SPEED);
 
@@ -470,6 +486,23 @@ public class SkyStoneAutoMeet3 extends Robot {
         blueFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 7.5, STRAIGHT_SPEED);
         blueFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT,6, STRAIGHT_SPEED);
         blueFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS,4, STRAIGHT_SPEED);
+        */
+
+        //BLUE FOUNDATION PATH -- COMPLETE
+        blueFoundationPath.stop();
+        blueFoundationPath.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 7, 0.8); // move forwards to foundation
+        blueFoundationPath.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 5,-0.8); // strafe to align w/ foundation
+        blueFoundationPath.addSegment(DeadReckonPath.SegmentType.STRAIGHT,5,0.8); // push up to foundation
+
+        endBlueFoundation.stop();
+        endBlueFoundation.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 10, -0.5); // pull foundation back
+        endBlueFoundation.addSegment(DeadReckonPath.SegmentType.TURN, 130, 0.7); // turn the foundation into the building site
+
+        blueFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 7, 0.8); // push foundation against wall
+        blueFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 11, -0.8); // backs up to skybridge
+        blueFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 8, 0.4);//parks on inside of skybridge
+
+
 
         blueSkyStoneUnderBridge.stop();
         blueSkyStoneUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 5, -STRAIGHT_SPEED); //5.5 originally
