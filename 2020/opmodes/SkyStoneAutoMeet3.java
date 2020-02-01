@@ -460,7 +460,7 @@ public class SkyStoneAutoMeet3 extends Robot {
          redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 5, STRAIGHT_SPEED);
          redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 4, -STRAIGHT_SPEED); */
 
-        //MODIFIED RED FOUNDATION PATH: COMPLETE
+        //MODIFIED RED FOUNDATION PATH: COMPLETE (modified lines 473-477)
         redFoundationPath.stop();
         redFoundationPath.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 7, 0.8); // move forwards to foundation
         redFoundationPath.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 5,0.8); // strafe to align w/ foundation
@@ -470,9 +470,11 @@ public class SkyStoneAutoMeet3 extends Robot {
         endRedFoundation.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 10, -0.5); // pull foundation back
         endRedFoundation.addSegment(DeadReckonPath.SegmentType.TURN, 130, -0.7); // turn the foundation into the building site
 
-        redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 4, 0.8); // push foundation against wall
-        redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 11, -0.8); // backs up to skybridge
-        redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 8, -0.4);//parks on inside of skybridge
+        redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 5, 0.8); // push foundation against wall (modified)
+        redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT,4,-0.8);//backs up (NEW LINE)
+        redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 6, -0.4);//strafes sideways (modified)
+        redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 6, -0.8); // backs up to skybridge (modified)
+        redFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS,2, -0.4); //pushes up against bridge (NEW)
 
         //ORIGINAL BLUE FOUNDATION PATH
         /*blueFoundationPath.stop();
@@ -488,20 +490,21 @@ public class SkyStoneAutoMeet3 extends Robot {
         blueFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS,4, STRAIGHT_SPEED);
         */
 
-        //BLUE FOUNDATION PATH -- COMPLETE
+        //BLUE FOUNDATION PATH -- COMPLETE (MODIFIED LINES 503-507)
         blueFoundationPath.stop();
         blueFoundationPath.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 7, 0.8); // move forwards to foundation
         blueFoundationPath.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 5,-0.8); // strafe to align w/ foundation
         blueFoundationPath.addSegment(DeadReckonPath.SegmentType.STRAIGHT,5,0.8); // push up to foundation
 
         endBlueFoundation.stop();
-        endBlueFoundation.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 10, -0.5); // pull foundation back
+        endBlueFoundation.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 8, -0.5); // pull foundation back
         endBlueFoundation.addSegment(DeadReckonPath.SegmentType.TURN, 130, 0.7); // turn the foundation into the building site
 
-        blueFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 7, 0.8); // push foundation against wall
-        blueFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 11, -0.8); // backs up to skybridge
-        blueFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 8, 0.4);//parks on inside of skybridge
-
+        blueFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 14, 0.8); // push foundation against wall
+        blueFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT,11,-0.8);//backs up (NEW LINE)
+        //blueFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 3, 0.4);//strafes sideways (modified)
+        //blueFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.STRAIGHT, 5, -0.8); // backs up to skybridge
+        blueFoundationUnderBridge.addSegment(DeadReckonPath.SegmentType.SIDEWAYS, 2, 0.4);//pushes up on inside of skybridge
 
 
         blueSkyStoneUnderBridge.stop();
