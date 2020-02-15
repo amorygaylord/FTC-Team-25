@@ -72,16 +72,18 @@ public class RollingStoneTeleop extends Robot {
     //emily's code
     private Servo leftServo;
     private Servo rightServo;
-    private Servo monsterRetentionServo;
+    //private Servo monsterRetentionServo;
     private Servo grabberServo;
     private DcMotor liftMotor;
+
+    private Servo capstoneServo;
 
     private final double OPEN_LEFT_SERVO = (float) 85.0 / 256.0;
     private final double OPEN_RIGHT_SERVO = (float) 145.0 / 256.0;
     private final double CLOSE_LEFT_SERVO = (float) 159.0 / 256.0;
     private final double CLOSE_RIGHT_SERVO = (float) 62.0 / 256.0;
-    private final double OPEN_MONSTER_RETENTION_SERVO = (float) 70.0 / 256.0;  //220
-    private final double CLOSE_MONSTER_RETENTION_SERVO = (float) 119.0 / 256.0; //117
+    //private final double OPEN_MONSTER_RETENTION_SERVO = (float) 70.0 / 256.0;  //220
+    //private final double CLOSE_MONSTER_RETENTION_SERVO = (float) 119.0 / 256.0; //117
     private final double DOWN_GRABBER_SERVO = (float)255/256.0;
     private final double UP_GRABBER_SERVO = (float) 30/256.0;
     private final double UP_FOUNDATION_LEFT_SERVO = (float) 118/ 256.0;
@@ -93,6 +95,8 @@ public class RollingStoneTeleop extends Robot {
     private final double INTAKE_OUT = 1;
     private final double INTAKE_IN = -1;
     private final double INTAKE_STOP = 0;
+    private final double DOWN_CAPSTONE_SERVO = (float) 141.0 / 256.0;
+    private final double UP_CAPSTONE_SERVO = (float) 192.0 / 256.0;
 
     DeadmanMotorTask liftLinearUp;
     DeadmanMotorTask liftLinearDown;
@@ -129,6 +133,7 @@ public class RollingStoneTeleop extends Robot {
         foundationHookLeft = hardwareMap.servo.get("foundationHookLeftServo");
         foundationHookRight = hardwareMap.servo.get("foundationHookRightServo");
         grabberServo = hardwareMap.servo.get("grabberServo");
+        capstoneServo = hardwareMap.servo.get("capstoneServo");
 
         //grabberServo.setPosition(UP_GRABBER_SERVO);
         //foundationHookLeft.setPosition(UP_FOUNDATION_LEFT_SERVO);
@@ -136,8 +141,8 @@ public class RollingStoneTeleop extends Robot {
 
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-        rearLeft = hardwareMap.get(DcMotor.class, "rearLeft");
-        rearRight = hardwareMap.get(DcMotor.class, "rearRight");
+        rearLeft = hardwareMap.get(DcMotor.class, "backLeft");
+        rearRight = hardwareMap.get(DcMotor.class, "backRight");
         leftIntake = hardwareMap.get(DcMotor.class, "leftIntake");
         rightIntake = hardwareMap.get(DcMotor.class, "rightIntake");
         rackAndPinion = hardwareMap.get(CRServo.class, "rackAndPinion");
@@ -154,8 +159,8 @@ public class RollingStoneTeleop extends Robot {
         liftMotor = hardwareMap.get(DcMotor.class, "liftMotor");
         leftServo = hardwareMap.servo.get("leftServo");
         rightServo = hardwareMap.servo.get("rightServo");
-        monsterRetentionServo = hardwareMap.servo.get("monsterRetentionServo");
-        monsterRetentionServo.setPosition(CLOSE_MONSTER_RETENTION_SERVO);
+        //monsterRetentionServo = hardwareMap.servo.get("monsterRetentionServo");
+        //monsterRetentionServo.setPosition(CLOSE_MONSTER_RETENTION_SERVO);
 
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftMotor.setPower(0.0);
@@ -173,10 +178,10 @@ public class RollingStoneTeleop extends Robot {
         //drivetrain.setNoncanonicalMotorDirection();
 
         liftLinearUp = new DeadmanMotorTask(this, liftMotor, LIFT_POWER_UP, GamepadTask.GamepadNumber. GAMEPAD_2, DeadmanMotorTask.DeadmanButton.BUTTON_Y);
-        liftLinearUp.setMaxMotorPosition(MAX_LINEAR_HEIGHT);
+        //liftLinearUp.setMaxMotorPosition(MAX_LINEAR_HEIGHT);
 
         liftLinearDown = new DeadmanMotorTask(this, liftMotor, LIFT_POWER_DOWN, GamepadTask.GamepadNumber. GAMEPAD_2, DeadmanMotorTask.DeadmanButton.BUTTON_A);
-        liftLinearUp.setMinMotorPosition(MIN_LINEAR_HEIGHT);
+        //liftLinearUp.setMinMotorPosition(MIN_LINEAR_HEIGHT);
     }
 
     public void liftMotorOneStep(DcMotorSimple.Direction direction)
@@ -224,7 +229,7 @@ public class RollingStoneTeleop extends Robot {
         this.addTask(drivetask);
         //this.addTask(new TankDriveTask(this, drivetrain));
 
-        monsterRetentionServo.setPosition(OPEN_MONSTER_RETENTION_SERVO);
+        //monsterRetentionServo.setPosition(OPEN_MONSTER_RETENTION_SERVO);
 
         //grabberServo.setPosition(UP_GRABBER_SERVO);
 
@@ -257,6 +262,12 @@ public class RollingStoneTeleop extends Robot {
                     case BUTTON_A_DOWN:
                         grabberServo.setPosition(DOWN_GRABBER_SERVO);
                         break;
+                    case BUTTON_X_DOWN:
+                        capstoneServo.setPosition(DOWN_CAPSTONE_SERVO);
+                        break;
+                    case BUTTON_B_DOWN:
+                        capstoneServo.setPosition(UP_CAPSTONE_SERVO);
+                        break;
                 }
             }
         });
@@ -286,12 +297,12 @@ public class RollingStoneTeleop extends Robot {
                         //liftMotor.setPower(0.0);
                         //liftMotorOneStep(LIFT_DIRECTION_UP);
                        // break;
-                    case DPAD_RIGHT_DOWN:
+                    /*case DPAD_RIGHT_DOWN:
                         monsterRetentionServo.setPosition(OPEN_MONSTER_RETENTION_SERVO);
-                        break;
-                    case DPAD_LEFT_DOWN:
+                        break;*/
+                    /*case DPAD_LEFT_DOWN:
                         monsterRetentionServo.setPosition(CLOSE_MONSTER_RETENTION_SERVO);
-                        break;
+                        break; */
                     case LEFT_BUMPER_DOWN:
                         rackAndPinion.setPower(INTAKE_IN);
                         break;
